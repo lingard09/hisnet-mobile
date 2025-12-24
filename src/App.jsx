@@ -23,10 +23,13 @@ export default function App() {
     return (
       <div>
         <button onClick={() => setSelected(null)}>← 뒤로</button>
-        <iframe
-          src={selected.link}
-          style={{ width: "100%", height: "95vh", border: "none" }}
-        />
+        <div
+          onClick={() => {
+            window.webkit.messageHandlers.openNotice.postMessage(selected.link);
+          }}
+        >
+          {selected.title}
+        </div>
       </div>
     );
   }
@@ -46,7 +49,7 @@ export default function App() {
             padding: 12,
             borderBottom: "1px solid #ddd",
             cursor: "pointer",
-            background: n.pinned ? "#f9f9ff" : "white"
+            background: n.pinned ? "#f9f9ff" : "white",
           }}
         >
           <strong>{n.title}</strong>
