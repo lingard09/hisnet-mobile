@@ -1,12 +1,18 @@
 import { useEffect, useState } from "react";
 
 export default function App() {
-  const [notices, setNotices] = useState([]);
+  const [notices, setNotices] = useState(null);
 
   useEffect(() => {
+    /* ✅ React 준비 완료 신호 */
+    if (window.webkit?.messageHandlers?.reactReady) {
+      window.webkit.messageHandlers.reactReady.postMessage("ready");
+    }
+
     function handleMessage(event) {
       const data = event.data;
-      if (data?.type === "HISNET_NOTICES" && Array.isArray(data.payload)) {
+
+      if (data?.type === "HISNET_NOTICES") {
         console.log("📩 공지 수신:", data.payload.length);
         setNotices(data.payload);
       }
@@ -16,71 +22,60 @@ export default function App() {
     return () => window.removeEventListener("message", handleMessage);
   }, []);
 
-  function openNotice(link) {
-    // iOS WKWebView 환경
-    if (window.webkit?.messageHandlers?.openLink) {
-      window.webkit.messageHandlers.openLink.postMessage(link);
-    } else {
-      // 일반 웹 (Safari / Chrome / Desktop)
-      window.open(link, "_blank");
-    }
+  /* 로딩 상태 */
+  if (!notices) {
+    return <div style={styles.loading}>공지 불러오는 중…</div>;
   }
 
   return (
     <div style={styles.container}>
-      <h1 style={styles.header}>HISNet 공지사항</h1>
+      <h2 style={styles.header}>📢 HISNet 공지사항</h2>
 
-      {notices.length === 0 ? (
-        <p style={styles.loading}>공지 불러오는 중...</p>
-      ) : (
-        <ul style={styles.list}>
-          {notices.map((n) => (
-            <li
-              key={n.id}
-              style={styles.item}
-              onClick={() => openNotice(n.link)}
-            >
-              {n.pinned && <span style={styles.pinned}>📌</span>}
-
-              <div style={styles.title}>{n.title}</div>
-
-              <div style={styles.meta}>
-                {n.writer} · {n.date} · 조회 {n.views}
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
+      {notices.map((n, idx) => (
+        <div
+          key={idx}
+          style={styles.card}
+          onClick={() => {
+            console.log("🔗 원문 열기:", n.link);
+            if (window.webkit?.messageHandlers?.openLink) {
+              window.webkit.messageHandlers.openLink.postMessage(n.link);
+            }
+          }}
+        >
+          <div style={styles.title}>
+            {n.pinned ? "📌 " : ""}
+            {n.title}
+          </div>
+          <div style={styles.meta}>
+            {n.writer} · {n.date} · 조회 {n.views}
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
 
 const styles = {
   container: {
-    maxWidth: 600,
-    margin: "0 auto",
     padding: 16,
-    fontFamily: "system-ui, -apple-system",
+    fontFamily: "system-ui",
+    background: "#f6f6f6",
+    minHeight: "100vh",
   },
   header: {
-    textAlign: "center",
-    marginBottom: 20,
+    marginBottom: 12,
   },
   loading: {
-    textAlign: "center",
-    color: "#666",
+    padding: 20,
+    fontSize: 16,
   },
-  list: {
-    listStyle: "none",
-    padding: 0,
-  },
-  item: {
-    padding: "12px 8px",
-    borderBottom: "1px solid #eee",
+  card: {
+    background: "#fff",
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 10,
     cursor: "pointer",
-  },
-  pinned: {
-    marginRight: 6,
+    boxShadow: "0 2px 6px rgba(0,0,0,0.05)",
   },
   title: {
     fontWeight: 600,
