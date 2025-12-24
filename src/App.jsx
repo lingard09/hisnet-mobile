@@ -1,24 +1,15 @@
 import { useEffect, useState } from "react";
 
-function App() {
+export default function App() {
   const [notices, setNotices] = useState([]);
-
-  // useEffect(() => {
-  //   // iOS WebView에서 데이터 받기
-  //   window.receiveNotices = (data) => {
-  //     setNotices(data);
-  //     localStorage.setItem("hisnet_notices", JSON.stringify(data));
-  //   };
-
-  //   // 새로고침 대비
-  //   const saved = localStorage.getItem("hisnet_notices");
-  //   if (saved) setNotices(JSON.parse(saved));
-  // }, []);
 
   useEffect(() => {
     function handleMessage(event) {
-      if (event.data?.type === "HISNET_NOTICES") {
-        console.log("📩 공지 수신", event.data.payload);
+      const data = event.data;
+
+      if (data?.type === "HISNET_NOTICES" && Array.isArray(data.payload)) {
+        console.log("📩 HISNet notices received:", data.payload);
+        setNotices(data.payload);
       }
     }
 
@@ -27,26 +18,60 @@ function App() {
   }, []);
 
   return (
-    <div style={{ padding: 16 }}>
-      <h2>📢 HISNet 공지</h2>
+    <div style={styles.container}>
+      <h1 style={styles.header}>HISNet 공지사항</h1>
 
-      {notices.length === 0 && (
-        <p>공지 데이터가 없습니다. HISNet에서 가져오세요.</p>
+      {notices.length === 0 ? (
+        <p style={styles.loading}>공지 불러오는 중...</p>
+      ) : (
+        <ul style={styles.list}>
+          {notices.map((n) => (
+            <li key={n.id} style={styles.item}>
+              {n.pinned && <span style={styles.pinned}>📌</span>}
+              <div style={styles.title}>{n.title}</div>
+              <div style={styles.meta}>
+                {n.writer} · {n.date} · 조회 {n.views}
+              </div>
+            </li>
+          ))}
+        </ul>
       )}
-
-      {notices.map((n, i) => (
-        <div key={i} style={{ marginBottom: 12 }}>
-          <strong>
-            {n.pinned ? "📌 " : ""}
-            {n.title}
-          </strong>
-          <div style={{ fontSize: 12 }}>
-            {n.date} · {n.writer} · 조회 {n.views}
-          </div>
-        </div>
-      ))}
     </div>
   );
 }
 
-export default App;
+const styles = {
+  container: {
+    maxWidth: 600,
+    margin: "0 auto",
+    padding: 16,
+    fontFamily: "system-ui, -apple-system",
+  },
+  header: {
+    textAlign: "center",
+    marginBottom: 20,
+  },
+  loading: {
+    textAlign: "center",
+    color: "#666",
+  },
+  list: {
+    listStyle: "none",
+    padding: 0,
+  },
+  item: {
+    padding: "12px 8px",
+    borderBottom: "1px solid #eee",
+  },
+  pinned: {
+    marginRight: 6,
+  },
+  title: {
+    fontWeight: 600,
+    marginBottom: 4,
+  },
+  meta: {
+    fontSize: 12,
+    color: "#666",
+  },
+};
