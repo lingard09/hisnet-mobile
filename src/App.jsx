@@ -7,6 +7,7 @@ export default function App() {
     function handleMessage(event) {
       const data = event.data;
       if (data?.type === "HISNET_NOTICES" && Array.isArray(data.payload)) {
+        console.log("📩 공지 수신:", data.payload.length);
         setNotices(data.payload);
       }
     }
@@ -16,7 +17,13 @@ export default function App() {
   }, []);
 
   function openNotice(link) {
-    window.open(link, "_blank");
+    // iOS WKWebView 환경
+    if (window.webkit?.messageHandlers?.openLink) {
+      window.webkit.messageHandlers.openLink.postMessage(link);
+    } else {
+      // 일반 웹 (Safari / Chrome / Desktop)
+      window.open(link, "_blank");
+    }
   }
 
   return (
