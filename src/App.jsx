@@ -25,10 +25,17 @@ export default function App() {
     return <div style={styles.loading}>공지 불러오는 중…</div>;
   }
 
-  const openNotice = (url) => {
-    console.log("📄 원문 요청:", url);
-    window.webkit?.messageHandlers?.openNoticeInWebView?.postMessage(url);
-  };
+  function openNotice(url) {
+  if (window.webkit?.messageHandlers?.noticeHandler) {
+    window.webkit.messageHandlers.noticeHandler.postMessage({
+      type: "OPEN_NOTICE",
+      url: url,
+    });
+  } else {
+    console.log("iOS WebView 아님");
+  }
+}
+
 
   return (
     <div style={styles.container}>
