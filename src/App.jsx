@@ -6,9 +6,7 @@ export default function App() {
   useEffect(() => {
     function handleMessage(event) {
       const data = event.data;
-
       if (data?.type === "HISNET_NOTICES" && Array.isArray(data.payload)) {
-        console.log("📩 HISNet notices received:", data.payload);
         setNotices(data.payload);
       }
     }
@@ -16,6 +14,10 @@ export default function App() {
     window.addEventListener("message", handleMessage);
     return () => window.removeEventListener("message", handleMessage);
   }, []);
+
+  function openNotice(link) {
+    window.open(link, "_blank");
+  }
 
   return (
     <div style={styles.container}>
@@ -26,9 +28,15 @@ export default function App() {
       ) : (
         <ul style={styles.list}>
           {notices.map((n) => (
-            <li key={n.id} style={styles.item}>
+            <li
+              key={n.id}
+              style={styles.item}
+              onClick={() => openNotice(n.link)}
+            >
               {n.pinned && <span style={styles.pinned}>📌</span>}
+
               <div style={styles.title}>{n.title}</div>
+
               <div style={styles.meta}>
                 {n.writer} · {n.date} · 조회 {n.views}
               </div>
@@ -62,6 +70,7 @@ const styles = {
   item: {
     padding: "12px 8px",
     borderBottom: "1px solid #eee",
+    cursor: "pointer",
   },
   pinned: {
     marginRight: 6,
