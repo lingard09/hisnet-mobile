@@ -4,21 +4,16 @@ export default function App() {
   const [notices, setNotices] = useState(null);
 
   useEffect(() => {
-    // React 준비 완료 신호
-    if (window.webkit?.messageHandlers?.reactReady) {
-      window.webkit.messageHandlers.reactReady.postMessage("ready");
-    }
-
-    function handleMessage(event) {
-      const data = event.data;
-      if (data?.type === "HISNET_NOTICES") {
-        console.log("📩 공지 수신:", data.payload.length);
-        setNotices(data.payload);
+    function onMessage(event) {
+      if (event.data?.type === "NOTICES") {
+        console.log("📥 공지 수신:", event.data.data.length);
+        setNotices(event.data.data);
+        setLoading(false);
       }
     }
 
-    window.addEventListener("message", handleMessage);
-    return () => window.removeEventListener("message", handleMessage);
+    window.addEventListener("message", onMessage);
+    return () => window.removeEventListener("message", onMessage);
   }, []);
 
   if (!notices) {
@@ -26,27 +21,18 @@ export default function App() {
   }
 
   function openNotice(url) {
-  if (window.webkit?.messageHandlers?.noticeHandler) {
-    window.webkit.messageHandlers.noticeHandler.postMessage({
+    window.webkit?.messageHandlers?.noticeHandler?.postMessage({
       type: "OPEN_NOTICE",
-      url: url,
+      url,
     });
-  } else {
-    console.log("iOS WebView 아님");
   }
-}
-
 
   return (
     <div style={styles.container}>
       <h2 style={styles.header}>📢 HISNet 공지사항</h2>
 
       {notices.map((n, i) => (
-        <div
-          key={i}
-          style={styles.card}
-          onClick={() => openNotice(n.link)}
-        >
+        <div key={i} style={styles.card} onClick={() => openNotice(n.link)}>
           <div style={styles.title}>
             {n.pinned ? "📌 " : ""}
             {n.title}
