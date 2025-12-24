@@ -1,68 +1,83 @@
 import { useEffect, useState } from "react";
 
 export default function App() {
-  const [notices, setNotices] = useState(null);
+  const [notices, setNotices] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [currentUrl, setCurrentUrl] = useState(null);
 
+  // Swift → React 메시지 수신
   useEffect(() => {
     function onMessage(event) {
-      if (event.data?.type === "NOTICES") {
-        console.log("📥 공지 수신:", event.data.data.length);
-        setNotices(event.data.data);
+      const msg = event.data;
+
+      if (msg?.type === "NOTICES") {
+        setNotices(msg.data);
         setLoading(false);
+      }
+
+      if (msg?.type === "GO_BACK") {
+        setCurrentUrl(null);
       }
     }
 
     window.addEventListener("message", onMessage);
+
+    // 🔥 React 준비 완료 알림
+    window.webkit?.messageHandlers?.reactReady?.postMessage("READY");
+
     return () => window.removeEventListener("message", onMessage);
   }, []);
 
-  if (!notices) {
-    return <div style={styles.loading}>공지 불러오는 중…</div>;
+  // 공지 클릭 → 원문 열기
+  const openNotice = (url) => {
+    setCurrentUrl(url);
+    window.webkit?.messageHandlers?.openNotice?.postMessage(url);
+  };
+
+  if (loading) {
+    return <div style={{ padding: 20 }}>공지 불러오는 중...</div>;
   }
 
-  function openNotice(url) {
-    window.webkit?.messageHandlers?.noticeHandler?.postMessage({
-      type: "OPEN_NOTICE",
-      url,
-    });
+  // 📄 공지 원문 화면
+  if (currentUrl) {
+    return (
+      <div style={{ height: "100vh" }}>
+        <button
+          onClick={() => setCurrentUrl(null)}
+          style={{ padding: 10 }}
+        >
+          ← 목록으로
+        </button>
+
+        <iframe
+          src={currentUrl}
+          style={{ width: "100%", height: "100%", border: "none" }}
+        />
+      </div>
+    );
   }
 
+  // 📋 공지 리스트
   return (
-    <div style={styles.container}>
-      <h2 style={styles.header}>📢 HISNet 공지사항</h2>
+    <div style={{ padding: 20 }}>
+      <h2>📢 한동대 공지사항</h2>
 
       {notices.map((n, i) => (
-        <div key={i} style={styles.card} onClick={() => openNotice(n.link)}>
-          <div style={styles.title}>
-            {n.pinned ? "📌 " : ""}
-            {n.title}
-          </div>
-          <div style={styles.meta}>
-            {n.writer} · {n.date} · 조회 {n.views}
+        <div
+          key={i}
+          onClick={() => openNotice(n.link)}
+          style={{
+            borderBottom: "1px solid #ddd",
+            padding: "10px 0",
+            cursor: "pointer"
+          }}
+        >
+          <b>{n.title}</b>
+          <div style={{ fontSize: 12, color: "#666" }}>
+            {n.writer} · {n.date}
           </div>
         </div>
       ))}
     </div>
   );
 }
-
-const styles = {
-  container: {
-    padding: 16,
-    background: "#f6f6f6",
-    minHeight: "100vh",
-    fontFamily: "system-ui",
-  },
-  header: { marginBottom: 12 },
-  loading: { padding: 20, fontSize: 16 },
-  card: {
-    background: "#fff",
-    padding: 12,
-    borderRadius: 8,
-    marginBottom: 10,
-    cursor: "pointer",
-    boxShadow: "0 2px 6px rgba(0,0,0,0.06)",
-  },
-  title: { fontWeight: 600, marginBottom: 4 },
-  meta: { fontSize: 12, color: "#666" },
-};
