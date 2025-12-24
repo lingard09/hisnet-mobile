@@ -4,14 +4,13 @@ export default function App() {
   const [notices, setNotices] = useState(null);
 
   useEffect(() => {
-    /* ✅ React 준비 완료 신호 */
+    // React 준비 완료 신호
     if (window.webkit?.messageHandlers?.reactReady) {
       window.webkit.messageHandlers.reactReady.postMessage("ready");
     }
 
     function handleMessage(event) {
       const data = event.data;
-
       if (data?.type === "HISNET_NOTICES") {
         console.log("📩 공지 수신:", data.payload.length);
         setNotices(data.payload);
@@ -22,25 +21,24 @@ export default function App() {
     return () => window.removeEventListener("message", handleMessage);
   }, []);
 
-  /* 로딩 상태 */
   if (!notices) {
     return <div style={styles.loading}>공지 불러오는 중…</div>;
   }
+
+  const openNotice = (url) => {
+    console.log("📄 원문 요청:", url);
+    window.webkit?.messageHandlers?.openNoticeInWebView?.postMessage(url);
+  };
 
   return (
     <div style={styles.container}>
       <h2 style={styles.header}>📢 HISNet 공지사항</h2>
 
-      {notices.map((n, idx) => (
+      {notices.map((n, i) => (
         <div
-          key={idx}
+          key={i}
           style={styles.card}
-          onClick={() => {
-            console.log("🔗 원문 열기:", n.link);
-            if (window.webkit?.messageHandlers?.openLink) {
-              window.webkit.messageHandlers.openLink.postMessage(n.link);
-            }
-          }}
+          onClick={() => openNotice(n.link)}
         >
           <div style={styles.title}>
             {n.pinned ? "📌 " : ""}
@@ -58,31 +56,20 @@ export default function App() {
 const styles = {
   container: {
     padding: 16,
-    fontFamily: "system-ui",
     background: "#f6f6f6",
     minHeight: "100vh",
+    fontFamily: "system-ui",
   },
-  header: {
-    marginBottom: 12,
-  },
-  loading: {
-    padding: 20,
-    fontSize: 16,
-  },
+  header: { marginBottom: 12 },
+  loading: { padding: 20, fontSize: 16 },
   card: {
     background: "#fff",
-    borderRadius: 8,
     padding: 12,
+    borderRadius: 8,
     marginBottom: 10,
     cursor: "pointer",
-    boxShadow: "0 2px 6px rgba(0,0,0,0.05)",
+    boxShadow: "0 2px 6px rgba(0,0,0,0.06)",
   },
-  title: {
-    fontWeight: 600,
-    marginBottom: 4,
-  },
-  meta: {
-    fontSize: 12,
-    color: "#666",
-  },
+  title: { fontWeight: 600, marginBottom: 4 },
+  meta: { fontSize: 12, color: "#666" },
 };
