@@ -71,9 +71,20 @@ iOS 사파리·안드로이드 크롬·데스크톱에서 모두 돌아간다.
 
 ```bash
 python3 bookmarklet/build.py
-# -> bookmarklet/bookmarklet.txt  (javascript: URL)
+# -> public/hm.js                 (런타임)
+# -> bookmarklet/loader.txt       (hm.js를 불러오는 228자 북마클릿 — 주력)
+# -> bookmarklet/bookmarklet.txt  (코드가 통째로 든 42KB 북마클릿 — 오프라인용)
 # -> public/install.html          (설치 안내 페이지, 배포 시 /install.html)
+
+# 배포 주소가 바뀌면
+HM_BASE=https://내도메인 python3 bookmarklet/build.py
 ```
+
+주력은 **짧은 로더**다. 42KB를 폰에서 붙여넣는 건 고통스럽고,
+hm.js만 갈아끼우면 북마크를 다시 만들 필요도 없다.
+
+로더는 **HTTPS로 서빙해야 한다.** 히즈넷이 HTTPS라
+`http://` 스크립트는 혼합 콘텐츠로 차단된다. LAN 주소로는 실제 히즈넷에서 동작하지 않는다.
 
 `content.js`를 고치면 반드시 다시 돌려야 북마클릿에 반영된다.
 

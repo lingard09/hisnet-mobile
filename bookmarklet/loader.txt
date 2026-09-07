@@ -1,0 +1,1 @@
+javascript:%28function%28%29%7Bvar%20s%3Ddocument.createElement%28%27script%27%29%3Bs.src%3D%27https%3A%2F%2Fhisnet-mobile.vercel.app%2Fhm.js%3F%27%2BDate.now%28%29%3Bdocument.documentElement.appendChild%28s%29%3B%7D%29%28%29%3B
