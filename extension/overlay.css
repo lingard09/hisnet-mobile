@@ -31,3 +31,14 @@
   display: inline-block; margin: 16px; padding: 10px 16px;
   background: #3b5bdb; color: #fff; border-radius: 8px; text-decoration: none; font-weight: 600;
 }
+.hm-content { padding: 0 16px; margin-top: 14px; line-height: 1.7; word-break: break-word; }
+.hm-content img { max-width: 100%; height: auto; }
+.hm-content table { width: 100% !important; display: block; overflow-x: auto; }
+.hm-loading, .hm-error { color: #888; font-size: 14px; }
+.hm-error { color: #b23; }
+.hm-repick {
+  display: block; margin: 12px 16px 0; padding: 7px 12px;
+  border: 1px solid #d5d5d5; background: #fff; border-radius: 6px;
+  font: inherit; font-size: 13px; color: #555; cursor: pointer;
+}
+.hm-repick[hidden] { display: none; }

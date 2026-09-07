@@ -62,3 +62,29 @@ cd extension && python3 -m http.server 4601
 하네스는 콘텐츠 스크립트를 `<script charset="utf-8">`로 주입하는데,
 실제 확장 런타임이 스크립트를 UTF-8로 읽는 동작을 맞춘 것이다.
 (charset을 빼면 스크립트 안의 한글 리터럴이 페이지 인코딩으로 디코딩돼 깨진다.)
+
+## 설치 없이 쓰기 — 북마클릿
+
+확장은 iOS에서 사파리만 지원하고, 남에게 주려면 App Store 등록이 필요하다.
+그래서 같은 코드를 북마클릿으로도 뽑는다. 북마크 하나면 끝이고
+iOS 사파리·안드로이드 크롬·데스크톱에서 모두 돌아간다.
+
+```bash
+python3 bookmarklet/build.py
+# -> bookmarklet/bookmarklet.txt  (javascript: URL)
+# -> public/install.html          (설치 안내 페이지, 배포 시 /install.html)
+```
+
+`content.js`를 고치면 반드시 다시 돌려야 북마클릿에 반영된다.
+
+### 확장과 다른 점
+
+| | 확장 | 북마클릿 |
+|---|---|---|
+| 실행 | 페이지 열면 자동 | 매번 북마크를 눌러야 함 |
+| iOS | 사파리만, App Store 필요 | 사파리에서 바로 |
+| 프레임 | manifest의 `all_frames`가 처리 | `content.js`가 직접 순회 |
+| CSS | manifest가 프레임마다 주입 | `window.__HM_CSS`로 넘겨 대상 문서에 주입 |
+
+프레임과 CSS를 `content.js`가 스스로 처리하도록 만들어 둬서 한 파일로 양쪽을 덮는다.
+스타일은 프레임 경계를 넘지 못하므로, **오버레이를 그리는 그 문서에** 심어야 한다.
