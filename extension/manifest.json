@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "HISNet Mobile",
+  "version": "0.1.0",
+  "description": "히즈넷 공지사항을 읽기 쉬운 목록으로 다시 그립니다.",
+  "content_scripts": [
+    {
+      "matches": ["https://hisnet.handong.edu/*"],
+      "all_frames": true,
+      "run_at": "document_idle",
+      "js": ["content.js"],
+      "css": ["overlay.css"]
+    }
+  ]
+}

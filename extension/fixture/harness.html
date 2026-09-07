@@ -1,0 +1,24 @@
+<!doctype html><html><head><meta charset="utf-8">
+<style>body{margin:0;font:12px system-ui}iframe{width:400px;height:680px;border:2px solid #333}
+#s{padding:6px;background:#eee}</style></head><body>
+<div id="s">…</div>
+<iframe id="f" src="/fixture/test-list.html"></iframe>
+<script>
+const step = new URLSearchParams(location.search).get('step') || 'list';
+const f=document.getElementById('f');
+f.onload=()=>setTimeout(()=>{
+  const d=f.contentDocument;
+  const fab=d.querySelector('.hm-fab');
+  if(!fab){s.textContent='FAB 없음 — 스크랩 실패';return;}
+  fab.click();
+  setTimeout(()=>{
+    const items=d.querySelectorAll('.hm-item');
+    if(step==='detail' && items.length){
+      items[0].click();
+      setTimeout(()=>{ s.textContent='상세 화면 · 원문 링크: '+(d.querySelector('.hm-open')?.getAttribute('href')||'없음'); },250);
+    } else {
+      s.textContent='찾은 공지 '+items.length+'건 · 고정 '+d.querySelectorAll('.hm-pinned').length+'건';
+    }
+  },250);
+},400);
+</script></body></html>

@@ -1,0 +1,33 @@
+.hm-root { all: initial; }
+.hm-fab {
+  position: fixed; right: 16px; bottom: 16px; z-index: 2147483646;
+  padding: 12px 18px; border: 0; border-radius: 999px;
+  background: #3b5bdb; color: #fff; font: 600 15px/1 -apple-system, system-ui, sans-serif;
+  box-shadow: 0 4px 14px rgba(0,0,0,.25); cursor: pointer;
+}
+.hm-sheet {
+  position: fixed; inset: 0; z-index: 2147483647; display: flex; flex-direction: column;
+  background: #fff; font: 15px/1.5 -apple-system, system-ui, sans-serif; color: #1a1a1a;
+}
+.hm-sheet[hidden] { display: none; }
+.hm-head {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 16px; border-bottom: 1px solid #e5e5e5; background: #fafafa;
+}
+.hm-head strong { flex: 1; font-size: 16px; }
+.hm-head button {
+  border: 1px solid #d5d5d5; background: #fff; border-radius: 6px;
+  padding: 6px 10px; font: inherit; font-size: 14px; cursor: pointer;
+}
+.hm-body { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 8px 0; }
+.hm-item { padding: 14px 16px; border-bottom: 1px solid #eee; cursor: pointer; }
+.hm-item:active { background: #f2f4ff; }
+.hm-pinned { background: #f7f9ff; }
+.hm-item-title { font-weight: 600; margin-bottom: 4px; word-break: break-all; }
+.hm-meta { font-size: 13px; color: #777; }
+.hm-detail-title { margin: 16px 16px 6px; font-size: 18px; word-break: break-all; }
+.hm-body > .hm-meta { margin: 0 16px; }
+.hm-open {
+  display: inline-block; margin: 16px; padding: 10px 16px;
+  background: #3b5bdb; color: #fff; border-radius: 8px; text-decoration: none; font-weight: 600;
+}
