@@ -20,6 +20,18 @@ window.__HM_CSS=".hm-root { all: initial; }\n.hm-fab {\n  position: fixed; right
   // 글자 수 휴리스틱은 본문보다 긴 사이드 배너에 지므로, 이쪽을 먼저 본다.
   const KNOWN_BODY_SELECTORS = [".readText.BoardContent", ".BoardContent", ".readText"];
 
+  // 구형 페이지는 본문도 이 표에 담는다. 다만 레이아웃도 같은 표로 짜기 때문에
+  // 바깥 것을 집으면 배너·푸터까지 딸려온다. 가장 안쪽 것부터 본다.
+  const CONTENT_TABLE =
+    'table[width="100%"][border="0"][cellpadding="0"][cellspacing="0"]';
+
+  // 배너·푸터·네비게이션으로 보이는 덩어리. 본문에서 걷어낸다.
+  const JUNK_RE =
+    /(^|[\s_-])(banner|footer|gnb|lnb|snb|nav|quick|copyright|aside)([\s_-]|$)/i;
+
+  const looksJunk = (el) =>
+    JUNK_RE.test(`${el.getAttribute("class") || ""} ${el.getAttribute("id") || ""}`);
+
   const text = (el) => (el ? el.textContent.replace(/\s+/g, " ").trim() : "");
 
   /** 표의 한 행에서 공지 정보를 뽑는다. 공지가 아니면 null. */
@@ -147,6 +159,7 @@ window.__HM_CSS=".hm-root { all: initial; }\n.hm-fab {\n  position: fixed; right
       if (len < 30) continue;
       const links = el.querySelectorAll("a").length;
       let score = len / (1 + links * 20); // 링크가 많으면 목록·네비로 본다
+      if (looksJunk(el)) score *= 0.05; // banner/footer/nav 류
       if (titleNode && titleNode !== el) {
         const pos = titleNode.compareDocumentPosition(el);
         if (pos & POS_FOLLOWING) score *= 3; // 제목 뒤 = 본문일 가능성
@@ -170,7 +183,25 @@ window.__HM_CSS=".hm-root { all: initial; }\n.hm-fab {\n  position: fixed; right
         if (text(el).length >= 10 && !known.includes(el)) known.push(el);
       }
     }
-    return [...known, ...ranked.filter((el) => !known.includes(el))];
+    // 본문 표 후보: 안쪽에 같은 표를 품지 않은 것(=가장 안쪽)부터,
+    // 그중에서도 글자가 많고 링크가 적은 순으로
+    let tables = [];
+    try {
+      tables = [...doc.querySelectorAll(CONTENT_TABLE)]
+        .filter((t) => !t.querySelector(CONTENT_TABLE) && !looksJunk(t))
+        .filter((t) => text(t).length >= 20)
+        .sort(
+          (a, b) =>
+            text(b).length / (1 + b.querySelectorAll("a").length * 20) -
+            text(a).length / (1 + a.querySelectorAll("a").length * 20)
+        );
+    } catch (_) {
+      tables = [];
+    }
+
+    const head = [...known];
+    for (const t of tables) if (!head.includes(t)) head.push(t);
+    return [...head, ...ranked.filter((el) => !head.includes(el))];
   }
 
   /** 고른 요소를 다음에도 찾을 수 있게 선택자를 만든다. */
@@ -226,6 +257,15 @@ window.__HM_CSS=".hm-root { all: initial; }\n.hm-fab {\n  position: fixed; right
   function sanitize(el) {
     const clone = el.cloneNode(true);
     clone.querySelectorAll("script, style, link, iframe, object, embed, form").forEach((n) => n.remove());
+
+    // 본문 안에 섞여 있는 배너·푸터 조각을 걷어낸다.
+    // 다만 그게 본문의 대부분이면 오탐이므로 남긴다.
+    const whole = text(clone).length || 1;
+    clone.querySelectorAll("[class], [id]").forEach((n) => {
+      if (!n.isConnected || !looksJunk(n)) return;
+      if (text(n).length / whole > 0.5) return;
+      n.remove();
+    });
     clone.querySelectorAll("*").forEach((n) => {
       [...n.attributes].forEach((a) => {
         if (/^on/i.test(a.name) || /^javascript:/i.test(a.value)) n.removeAttribute(a.name);
