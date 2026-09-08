@@ -16,6 +16,10 @@ window.__HM_CSS=".hm-root { all: initial; }\n.hm-fab {\n  position: fixed; right
   const ROW_SELECTOR = "";
   const BODY_SELECTOR = "";
 
+  // 실제 게시판에서 확인된 본문 컨테이너.
+  // 글자 수 휴리스틱은 본문보다 긴 사이드 배너에 지므로, 이쪽을 먼저 본다.
+  const KNOWN_BODY_SELECTORS = [".readText.BoardContent", ".BoardContent", ".readText"];
+
   const text = (el) => (el ? el.textContent.replace(/\s+/g, " ").trim() : "");
 
   /** 표의 한 행에서 공지 정보를 뽑는다. 공지가 아니면 null. */
@@ -150,7 +154,23 @@ window.__HM_CSS=".hm-root { all: initial; }\n.hm-fab {\n  position: fixed; right
       }
       out.push({ el, score });
     }
-    return out.sort((a, b) => b.score - a.score).map((c) => c.el);
+    const ranked = out.sort((a, b) => b.score - a.score).map((c) => c.el);
+
+    // 알려진 선택자가 맞으면 그것을 맨 앞에 둔다.
+    // 나머지는 뒤에 남겨서 "다른 영역 보기"로 계속 넘겨볼 수 있게 한다.
+    const known = [];
+    for (const sel of KNOWN_BODY_SELECTORS) {
+      let hits;
+      try {
+        hits = doc.querySelectorAll(sel);
+      } catch (_) {
+        continue;
+      }
+      for (const el of hits) {
+        if (text(el).length >= 10 && !known.includes(el)) known.push(el);
+      }
+    }
+    return [...known, ...ranked.filter((el) => !known.includes(el))];
   }
 
   /** 고른 요소를 다음에도 찾을 수 있게 선택자를 만든다. */
