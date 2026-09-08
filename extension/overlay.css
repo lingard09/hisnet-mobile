@@ -53,3 +53,22 @@
   display: block; margin-top: 12px; padding: 7px 14px; border: 0; border-radius: 6px;
   background: #3b5bdb; color: #fff; font: inherit; cursor: pointer;
 }
+.hm-candinfo {
+  margin: 14px 16px 0; font: 11px/1.5 ui-monospace, Menlo, monospace;
+  color: #999; word-break: break-all;
+}
+.hm-pickrow { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 16px 0; }
+.hm-pickrow button {
+  padding: 7px 12px; border: 1px solid #d5d5d5; background: #fff;
+  border-radius: 6px; font: inherit; font-size: 13px; color: #555; cursor: pointer;
+}
+.hm-pickrow .hm-keep { border-color: #b9c4ea; color: #3b5bdb; font-weight: 600; }
+.hm-repick[hidden], .hm-keep[hidden] { display: none; }
+.hm-memo {
+  margin: 8px 16px 0; font-size: 11px; color: #999;
+  display: flex; gap: 8px; align-items: center; flex-wrap: wrap; word-break: break-all;
+}
+.hm-forget {
+  padding: 3px 8px; border: 1px solid #ddd; background: #fff;
+  border-radius: 5px; font: inherit; font-size: 11px; color: #888; cursor: pointer;
+}

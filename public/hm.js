@@ -1,4 +1,4 @@
-window.__HM_CSS=".hm-root { all: initial; }\n.hm-fab {\n  position: fixed; right: 16px; bottom: 16px; z-index: 2147483646;\n  padding: 12px 18px; border: 0; border-radius: 999px;\n  background: #3b5bdb; color: #fff; font: 600 15px/1 -apple-system, system-ui, sans-serif;\n  box-shadow: 0 4px 14px rgba(0,0,0,.25); cursor: pointer;\n}\n.hm-sheet {\n  position: fixed; inset: 0; z-index: 2147483647; display: flex; flex-direction: column;\n  background: #fff; font: 15px/1.5 -apple-system, system-ui, sans-serif; color: #1a1a1a;\n}\n.hm-sheet[hidden] { display: none; }\n.hm-head {\n  display: flex; align-items: center; gap: 10px;\n  padding: 14px 16px; border-bottom: 1px solid #e5e5e5; background: #fafafa;\n}\n.hm-head strong { flex: 1; font-size: 16px; }\n.hm-head button {\n  border: 1px solid #d5d5d5; background: #fff; border-radius: 6px;\n  padding: 6px 10px; font: inherit; font-size: 14px; cursor: pointer;\n}\n.hm-body { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 8px 0; }\n.hm-item { padding: 14px 16px; border-bottom: 1px solid #eee; cursor: pointer; }\n.hm-item:active { background: #f2f4ff; }\n.hm-pinned { background: #f7f9ff; }\n.hm-item-title { font-weight: 600; margin-bottom: 4px; word-break: break-all; }\n.hm-meta { font-size: 13px; color: #777; }\n.hm-detail-title { margin: 16px 16px 6px; font-size: 18px; word-break: break-all; }\n.hm-body > .hm-meta { margin: 0 16px; }\n.hm-open {\n  display: inline-block; margin: 16px; padding: 10px 16px;\n  background: #3b5bdb; color: #fff; border-radius: 8px; text-decoration: none; font-weight: 600;\n}\n.hm-content { padding: 0 16px; margin-top: 14px; line-height: 1.7; word-break: break-word; }\n.hm-content img { max-width: 100%; height: auto; }\n.hm-content table { width: 100% !important; display: block; overflow-x: auto; }\n.hm-loading, .hm-error { color: #888; font-size: 14px; }\n.hm-error { color: #b23; }\n.hm-repick {\n  display: block; margin: 12px 16px 0; padding: 7px 12px;\n  border: 1px solid #d5d5d5; background: #fff; border-radius: 6px;\n  font: inherit; font-size: 13px; color: #555; cursor: pointer;\n}\n.hm-repick[hidden] { display: none; }\n.hm-diag {\n  position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 2147483647;\n  background: #1f2430; color: #e6e6e6; padding: 14px 16px; border-radius: 10px;\n  font: 12px/1.6 ui-monospace, SFMono-Regular, Menlo, monospace;\n  white-space: pre-wrap; word-break: break-all; max-height: 70vh; overflow-y: auto;\n  box-shadow: 0 6px 24px rgba(0,0,0,.35);\n}\n.hm-diag-close {\n  display: block; margin-top: 12px; padding: 7px 14px; border: 0; border-radius: 6px;\n  background: #3b5bdb; color: #fff; font: inherit; cursor: pointer;\n}\n";
+window.__HM_CSS=".hm-root { all: initial; }\n.hm-fab {\n  position: fixed; right: 16px; bottom: 16px; z-index: 2147483646;\n  padding: 12px 18px; border: 0; border-radius: 999px;\n  background: #3b5bdb; color: #fff; font: 600 15px/1 -apple-system, system-ui, sans-serif;\n  box-shadow: 0 4px 14px rgba(0,0,0,.25); cursor: pointer;\n}\n.hm-sheet {\n  position: fixed; inset: 0; z-index: 2147483647; display: flex; flex-direction: column;\n  background: #fff; font: 15px/1.5 -apple-system, system-ui, sans-serif; color: #1a1a1a;\n}\n.hm-sheet[hidden] { display: none; }\n.hm-head {\n  display: flex; align-items: center; gap: 10px;\n  padding: 14px 16px; border-bottom: 1px solid #e5e5e5; background: #fafafa;\n}\n.hm-head strong { flex: 1; font-size: 16px; }\n.hm-head button {\n  border: 1px solid #d5d5d5; background: #fff; border-radius: 6px;\n  padding: 6px 10px; font: inherit; font-size: 14px; cursor: pointer;\n}\n.hm-body { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 8px 0; }\n.hm-item { padding: 14px 16px; border-bottom: 1px solid #eee; cursor: pointer; }\n.hm-item:active { background: #f2f4ff; }\n.hm-pinned { background: #f7f9ff; }\n.hm-item-title { font-weight: 600; margin-bottom: 4px; word-break: break-all; }\n.hm-meta { font-size: 13px; color: #777; }\n.hm-detail-title { margin: 16px 16px 6px; font-size: 18px; word-break: break-all; }\n.hm-body > .hm-meta { margin: 0 16px; }\n.hm-open {\n  display: inline-block; margin: 16px; padding: 10px 16px;\n  background: #3b5bdb; color: #fff; border-radius: 8px; text-decoration: none; font-weight: 600;\n}\n.hm-content { padding: 0 16px; margin-top: 14px; line-height: 1.7; word-break: break-word; }\n.hm-content img { max-width: 100%; height: auto; }\n.hm-content table { width: 100% !important; display: block; overflow-x: auto; }\n.hm-loading, .hm-error { color: #888; font-size: 14px; }\n.hm-error { color: #b23; }\n.hm-repick {\n  display: block; margin: 12px 16px 0; padding: 7px 12px;\n  border: 1px solid #d5d5d5; background: #fff; border-radius: 6px;\n  font: inherit; font-size: 13px; color: #555; cursor: pointer;\n}\n.hm-repick[hidden] { display: none; }\n.hm-diag {\n  position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 2147483647;\n  background: #1f2430; color: #e6e6e6; padding: 14px 16px; border-radius: 10px;\n  font: 12px/1.6 ui-monospace, SFMono-Regular, Menlo, monospace;\n  white-space: pre-wrap; word-break: break-all; max-height: 70vh; overflow-y: auto;\n  box-shadow: 0 6px 24px rgba(0,0,0,.35);\n}\n.hm-diag-close {\n  display: block; margin-top: 12px; padding: 7px 14px; border: 0; border-radius: 6px;\n  background: #3b5bdb; color: #fff; font: inherit; cursor: pointer;\n}\n.hm-candinfo {\n  margin: 14px 16px 0; font: 11px/1.5 ui-monospace, Menlo, monospace;\n  color: #999; word-break: break-all;\n}\n.hm-pickrow { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 16px 0; }\n.hm-pickrow button {\n  padding: 7px 12px; border: 1px solid #d5d5d5; background: #fff;\n  border-radius: 6px; font: inherit; font-size: 13px; color: #555; cursor: pointer;\n}\n.hm-pickrow .hm-keep { border-color: #b9c4ea; color: #3b5bdb; font-weight: 600; }\n.hm-repick[hidden], .hm-keep[hidden] { display: none; }\n.hm-memo {\n  margin: 8px 16px 0; font-size: 11px; color: #999;\n  display: flex; gap: 8px; align-items: center; flex-wrap: wrap; word-break: break-all;\n}\n.hm-forget {\n  padding: 3px 8px; border: 1px solid #ddd; background: #fff;\n  border-radius: 5px; font: inherit; font-size: 11px; color: #888; cursor: pointer;\n}\n";
 /* 히즈넷 공지 목록을 읽어 모바일용 화면으로 다시 그린다.
  *
  * 히즈넷은 <frameset> 구조라 실제 내용이 안쪽 프레임에 있다.
@@ -199,9 +199,39 @@ window.__HM_CSS=".hm-root { all: initial; }\n.hm-fab {\n  position: fixed; right
       tables = [];
     }
 
+    // 표를 통째로 쓰면 제목·작성자 줄까지 딸려온다.
+    // 표 안에서 제목을 담지 않은 가장 큰 셀이 있으면 그쪽을 먼저 보여준다.
+    const bestCellIn = (table) => {
+      let best = null;
+      let bestLen = 0;
+      for (const cell of table.querySelectorAll("td, th")) {
+        if (cell.querySelector("table")) continue; // 다른 셀을 품은 껍데기
+        const t = text(cell);
+        if (t.length < 20) continue;
+        if (titleNode && t.includes(text(titleNode))) continue; // 제목 줄
+        if (cell.querySelectorAll("a").length > 2) continue;
+        if (t.length > bestLen) {
+          bestLen = t.length;
+          best = cell;
+        }
+      }
+      return best;
+    };
+
     const head = [...known];
-    for (const t of tables) if (!head.includes(t)) head.push(t);
+    for (const t of tables) {
+      const cell = bestCellIn(t);
+      if (cell && !head.includes(cell)) head.push(cell);
+      if (!head.includes(t)) head.push(t);
+    }
     return [...head, ...ranked.filter((el) => !head.includes(el))];
+  }
+
+  /** 후보가 무엇인지 한 줄로 요약한다. 어느 후보가 본문인지 화면에서 바로 읽으려고. */
+  function describe(el) {
+    const cls = (el.getAttribute("class") || "").trim().split(/\s+/).filter(Boolean);
+    const tag = el.tagName.toLowerCase() + (cls.length ? "." + cls.join(".") : "");
+    return `${tag.slice(0, 40)} · ${text(el).length}자`;
   }
 
   /** 고른 요소를 다음에도 찾을 수 있게 선택자를 만든다. */
@@ -231,6 +261,13 @@ window.__HM_CSS=".hm-root { all: initial; }\n.hm-fab {\n  position: fixed; right
       return localStorage.getItem(MEMO_KEY) || "";
     } catch (_) {
       return "";
+    }
+  };
+  const forget = () => {
+    try {
+      localStorage.removeItem(MEMO_KEY);
+    } catch (_) {
+      /* 무시 */
     }
   };
   const remember = (sel) => {
@@ -334,7 +371,12 @@ window.__HM_CSS=".hm-root { all: initial; }\n.hm-fab {\n  position: fixed; right
         <h3 class="hm-detail-title"></h3>
         <div class="hm-meta"></div>
         <div class="hm-content hm-loading">본문 불러오는 중...</div>
-        <button class="hm-repick" type="button" hidden></button>
+        <div class="hm-candinfo"></div>
+        <div class="hm-pickrow">
+          <button class="hm-repick" type="button" hidden></button>
+          <button class="hm-keep" type="button" hidden>이걸로 기억하기</button>
+        </div>
+        <div class="hm-memo"></div>
         <a class="hm-open" target="_top">원문 페이지로</a>`;
       body.querySelector(".hm-detail-title").textContent = n.title;
       body.querySelector(".hm-meta").textContent =
@@ -343,6 +385,9 @@ window.__HM_CSS=".hm-root { all: initial; }\n.hm-fab {\n  position: fixed; right
 
       const slot = body.querySelector(".hm-content");
       const retry = body.querySelector(".hm-repick");
+      const info = body.querySelector(".hm-candinfo");
+      const keep = body.querySelector(".hm-keep");
+      const memo = body.querySelector(".hm-memo");
       const open = body.querySelector(".hm-open");
 
       if (!n.link) {
@@ -361,9 +406,9 @@ window.__HM_CSS=".hm-root { all: initial; }\n.hm-fab {\n  position: fixed; right
         if (!ranked.length) throw new Error("본문 후보 없음");
 
         // 전에 직접 고른 위치가 있으면 그것을 맨 앞으로
-        const memo = remembered();
-        if (memo) {
-          const hit = doc.querySelector(memo);
+        const savedSel = remembered();
+        if (savedSel) {
+          const hit = doc.querySelector(savedSel);
           if (hit) {
             const i = ranked.indexOf(hit);
             if (i > 0) ranked.splice(i, 1);
@@ -371,22 +416,44 @@ window.__HM_CSS=".hm-root { all: initial; }\n.hm-fab {\n  position: fixed; right
           }
         }
 
+        const showMemo = () => {
+          const m = remembered();
+          memo.innerHTML = "";
+          if (!m) return;
+          const label = doc.createElement("span");
+          label.textContent = `기억됨: ${m.slice(0, 46)}`;
+          const clear = doc.createElement("button");
+          clear.className = "hm-forget";
+          clear.textContent = "기억 지우기";
+          clear.onclick = () => {
+            forget();
+            showMemo();
+          };
+          memo.append(label, clear);
+        };
+
         let idx = 0;
         const show = () => {
           slot.classList.remove("hm-loading", "hm-error");
           slot.replaceChildren(sanitize(ranked[idx]));
           retry.hidden = ranked.length < 2;
-          retry.textContent =
-            idx === 0
-              ? "본문이 아닌가요? 다른 영역 보기"
-              : `다른 영역 보기 (${idx + 1}/${ranked.length})`;
+          keep.hidden = ranked.length < 2;
+          retry.textContent = `다른 영역 보기 — 지금 ${idx + 1}/${ranked.length}`;
+          info.textContent = `${idx + 1}/${ranked.length} · ${describe(ranked[idx])}`;
         };
         show();
+        showMemo();
 
+        // 훑어보기는 저장하지 않는다.
+        // 예전에는 누를 때마다 저장해서, 지나쳐 간 배너까지 기억에 남았다.
         retry.onclick = () => {
           idx = (idx + 1) % ranked.length;
           show();
-          remember(cssPath(ranked[idx])); // 다음부터는 이 위치를 먼저 쓴다
+        };
+
+        keep.onclick = () => {
+          remember(cssPath(ranked[idx]));
+          showMemo();
         };
       } catch (e) {
         slot.classList.remove("hm-loading");

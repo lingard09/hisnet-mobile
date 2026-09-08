@@ -198,9 +198,39 @@
       tables = [];
     }
 
+    // 표를 통째로 쓰면 제목·작성자 줄까지 딸려온다.
+    // 표 안에서 제목을 담지 않은 가장 큰 셀이 있으면 그쪽을 먼저 보여준다.
+    const bestCellIn = (table) => {
+      let best = null;
+      let bestLen = 0;
+      for (const cell of table.querySelectorAll("td, th")) {
+        if (cell.querySelector("table")) continue; // 다른 셀을 품은 껍데기
+        const t = text(cell);
+        if (t.length < 20) continue;
+        if (titleNode && t.includes(text(titleNode))) continue; // 제목 줄
+        if (cell.querySelectorAll("a").length > 2) continue;
+        if (t.length > bestLen) {
+          bestLen = t.length;
+          best = cell;
+        }
+      }
+      return best;
+    };
+
     const head = [...known];
-    for (const t of tables) if (!head.includes(t)) head.push(t);
+    for (const t of tables) {
+      const cell = bestCellIn(t);
+      if (cell && !head.includes(cell)) head.push(cell);
+      if (!head.includes(t)) head.push(t);
+    }
     return [...head, ...ranked.filter((el) => !head.includes(el))];
+  }
+
+  /** 후보가 무엇인지 한 줄로 요약한다. 어느 후보가 본문인지 화면에서 바로 읽으려고. */
+  function describe(el) {
+    const cls = (el.getAttribute("class") || "").trim().split(/\s+/).filter(Boolean);
+    const tag = el.tagName.toLowerCase() + (cls.length ? "." + cls.join(".") : "");
+    return `${tag.slice(0, 40)} · ${text(el).length}자`;
   }
 
   /** 고른 요소를 다음에도 찾을 수 있게 선택자를 만든다. */
@@ -230,6 +260,13 @@
       return localStorage.getItem(MEMO_KEY) || "";
     } catch (_) {
       return "";
+    }
+  };
+  const forget = () => {
+    try {
+      localStorage.removeItem(MEMO_KEY);
+    } catch (_) {
+      /* 무시 */
     }
   };
   const remember = (sel) => {
@@ -333,7 +370,12 @@
         <h3 class="hm-detail-title"></h3>
         <div class="hm-meta"></div>
         <div class="hm-content hm-loading">본문 불러오는 중...</div>
-        <button class="hm-repick" type="button" hidden></button>
+        <div class="hm-candinfo"></div>
+        <div class="hm-pickrow">
+          <button class="hm-repick" type="button" hidden></button>
+          <button class="hm-keep" type="button" hidden>이걸로 기억하기</button>
+        </div>
+        <div class="hm-memo"></div>
         <a class="hm-open" target="_top">원문 페이지로</a>`;
       body.querySelector(".hm-detail-title").textContent = n.title;
       body.querySelector(".hm-meta").textContent =
@@ -342,6 +384,9 @@
 
       const slot = body.querySelector(".hm-content");
       const retry = body.querySelector(".hm-repick");
+      const info = body.querySelector(".hm-candinfo");
+      const keep = body.querySelector(".hm-keep");
+      const memo = body.querySelector(".hm-memo");
       const open = body.querySelector(".hm-open");
 
       if (!n.link) {
@@ -360,9 +405,9 @@
         if (!ranked.length) throw new Error("본문 후보 없음");
 
         // 전에 직접 고른 위치가 있으면 그것을 맨 앞으로
-        const memo = remembered();
-        if (memo) {
-          const hit = doc.querySelector(memo);
+        const savedSel = remembered();
+        if (savedSel) {
+          const hit = doc.querySelector(savedSel);
           if (hit) {
             const i = ranked.indexOf(hit);
             if (i > 0) ranked.splice(i, 1);
@@ -370,22 +415,44 @@
           }
         }
 
+        const showMemo = () => {
+          const m = remembered();
+          memo.innerHTML = "";
+          if (!m) return;
+          const label = doc.createElement("span");
+          label.textContent = `기억됨: ${m.slice(0, 46)}`;
+          const clear = doc.createElement("button");
+          clear.className = "hm-forget";
+          clear.textContent = "기억 지우기";
+          clear.onclick = () => {
+            forget();
+            showMemo();
+          };
+          memo.append(label, clear);
+        };
+
         let idx = 0;
         const show = () => {
           slot.classList.remove("hm-loading", "hm-error");
           slot.replaceChildren(sanitize(ranked[idx]));
           retry.hidden = ranked.length < 2;
-          retry.textContent =
-            idx === 0
-              ? "본문이 아닌가요? 다른 영역 보기"
-              : `다른 영역 보기 (${idx + 1}/${ranked.length})`;
+          keep.hidden = ranked.length < 2;
+          retry.textContent = `다른 영역 보기 — 지금 ${idx + 1}/${ranked.length}`;
+          info.textContent = `${idx + 1}/${ranked.length} · ${describe(ranked[idx])}`;
         };
         show();
+        showMemo();
 
+        // 훑어보기는 저장하지 않는다.
+        // 예전에는 누를 때마다 저장해서, 지나쳐 간 배너까지 기억에 남았다.
         retry.onclick = () => {
           idx = (idx + 1) % ranked.length;
           show();
-          remember(cssPath(ranked[idx])); // 다음부터는 이 위치를 먼저 쓴다
+        };
+
+        keep.onclick = () => {
+          remember(cssPath(ranked[idx]));
+          showMemo();
         };
       } catch (e) {
         slot.classList.remove("hm-loading");
