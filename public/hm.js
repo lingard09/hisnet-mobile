@@ -210,6 +210,18 @@ window.__HM_CSS=".hm-root { all: initial; }\n.hm-fab {\n  position: fixed; right
     }
   };
 
+  // 표 안에 든 본문을 그대로 꽂으면 display:table-cell 로 렌더돼 폭을 못 채운다.
+  // <td>·<tr> 같은 것은 알맹이만 꺼내 일반 블록에 담는다.
+  const CELL_TAGS = new Set(["TD", "TH", "TR", "TBODY", "THEAD", "TFOOT"]);
+
+  function unwrapCell(el) {
+    if (!CELL_TAGS.has(el.tagName)) return el;
+    const box = el.ownerDocument.createElement("div");
+    // 본문 자체가 표를 품고 있을 수 있으니 자식은 그대로 옮긴다
+    while (el.firstChild) box.appendChild(el.firstChild);
+    return box;
+  }
+
   /** 실행 가능한 것들을 걷어낸 사본을 만든다. */
   function sanitize(el) {
     const clone = el.cloneNode(true);
@@ -219,7 +231,7 @@ window.__HM_CSS=".hm-root { all: initial; }\n.hm-fab {\n  position: fixed; right
         if (/^on/i.test(a.name) || /^javascript:/i.test(a.value)) n.removeAttribute(a.name);
       });
     });
-    return clone;
+    return unwrapCell(clone);
   }
 
   // ---- UI -------------------------------------------------------------
