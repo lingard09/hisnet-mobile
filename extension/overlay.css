@@ -6,6 +6,8 @@
   box-shadow: 0 4px 14px rgba(0,0,0,.25); cursor: pointer;
 }
 .hm-sheet {
+  /* 본문 글자 크기. 화면 폭에 따라 커지되 너무 커지지 않게 묶는다. */
+  --hm-fs: clamp(16px, 4.3vw, 20px);
   position: fixed; inset: 0; z-index: 2147483647; display: flex; flex-direction: column;
   background: #fff; font: 15px/1.5 -apple-system, system-ui, sans-serif; color: #1a1a1a;
 }
@@ -23,15 +25,34 @@
 .hm-item { padding: 14px 16px; border-bottom: 1px solid #eee; cursor: pointer; }
 .hm-item:active { background: #f2f4ff; }
 .hm-pinned { background: #f7f9ff; }
-.hm-item-title { font-weight: 600; margin-bottom: 4px; word-break: break-all; }
+.hm-item-title { font-weight: 600; margin-bottom: 4px; word-break: break-all;
+  font-size: calc(var(--hm-fs) * 0.92); }
 .hm-meta { font-size: 13px; color: #777; }
-.hm-detail-title { margin: 16px 16px 6px; font-size: 18px; word-break: break-all; }
+.hm-detail-title { margin: 16px 16px 6px; word-break: break-all;
+  font-size: calc(var(--hm-fs) * 1.15); line-height: 1.4; }
 .hm-body > .hm-meta { margin: 0 16px; }
 .hm-open {
   display: inline-block; margin: 16px; padding: 10px 16px;
   background: #3b5bdb; color: #fff; border-radius: 8px; text-decoration: none; font-weight: 600;
 }
-.hm-content { padding: 0 16px; margin-top: 14px; line-height: 1.7; word-break: break-word; }
+.hm-content {
+  padding: 0 16px; margin-top: 14px; word-break: break-word;
+  font-size: var(--hm-fs); line-height: 1.75;
+}
+/* 원문에 박힌 작은 글씨·글꼴을 무력화한다.
+   구형 페이지는 <font size="2">나 인라인 font-size로 크기를 고정해 둔다.
+   b·strong은 굵기를 살려야 해서 건드리지 않는다. */
+.hm-content font,
+.hm-content span,
+.hm-content p,
+.hm-content div,
+.hm-content td,
+.hm-content th,
+.hm-content li {
+  font-size: inherit !important;
+  line-height: inherit !important;
+  font-family: inherit !important;
+}
 .hm-content img { max-width: 100%; height: auto; }
 .hm-content table { width: 100% !important; display: block; overflow-x: auto; }
 .hm-loading, .hm-error { color: #888; font-size: 14px; }
@@ -72,3 +93,11 @@
   padding: 3px 8px; border: 1px solid #ddd; background: #fff;
   border-radius: 5px; font: inherit; font-size: 11px; color: #888; cursor: pointer;
 }
+
+/* 글자 크기 조절 */
+.hm-fs { display: flex; gap: 6px; align-items: center; margin-left: auto; }
+.hm-fs button {
+  width: 34px; height: 32px; padding: 0; border: 1px solid #d5d5d5; background: #fff;
+  border-radius: 7px; font: inherit; font-size: 15px; color: #444; cursor: pointer;
+}
+.hm-fs button:active { background: #eee; }

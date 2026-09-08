@@ -1,4 +1,4 @@
-window.__HM_CSS=".hm-root { all: initial; }\n.hm-fab {\n  position: fixed; right: 16px; bottom: 16px; z-index: 2147483646;\n  padding: 12px 18px; border: 0; border-radius: 999px;\n  background: #3b5bdb; color: #fff; font: 600 15px/1 -apple-system, system-ui, sans-serif;\n  box-shadow: 0 4px 14px rgba(0,0,0,.25); cursor: pointer;\n}\n.hm-sheet {\n  position: fixed; inset: 0; z-index: 2147483647; display: flex; flex-direction: column;\n  background: #fff; font: 15px/1.5 -apple-system, system-ui, sans-serif; color: #1a1a1a;\n}\n.hm-sheet[hidden] { display: none; }\n.hm-head {\n  display: flex; align-items: center; gap: 10px;\n  padding: 14px 16px; border-bottom: 1px solid #e5e5e5; background: #fafafa;\n}\n.hm-head strong { flex: 1; font-size: 16px; }\n.hm-head button {\n  border: 1px solid #d5d5d5; background: #fff; border-radius: 6px;\n  padding: 6px 10px; font: inherit; font-size: 14px; cursor: pointer;\n}\n.hm-body { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 8px 0; }\n.hm-item { padding: 14px 16px; border-bottom: 1px solid #eee; cursor: pointer; }\n.hm-item:active { background: #f2f4ff; }\n.hm-pinned { background: #f7f9ff; }\n.hm-item-title { font-weight: 600; margin-bottom: 4px; word-break: break-all; }\n.hm-meta { font-size: 13px; color: #777; }\n.hm-detail-title { margin: 16px 16px 6px; font-size: 18px; word-break: break-all; }\n.hm-body > .hm-meta { margin: 0 16px; }\n.hm-open {\n  display: inline-block; margin: 16px; padding: 10px 16px;\n  background: #3b5bdb; color: #fff; border-radius: 8px; text-decoration: none; font-weight: 600;\n}\n.hm-content { padding: 0 16px; margin-top: 14px; line-height: 1.7; word-break: break-word; }\n.hm-content img { max-width: 100%; height: auto; }\n.hm-content table { width: 100% !important; display: block; overflow-x: auto; }\n.hm-loading, .hm-error { color: #888; font-size: 14px; }\n.hm-error { color: #b23; }\n.hm-repick {\n  display: block; margin: 12px 16px 0; padding: 7px 12px;\n  border: 1px solid #d5d5d5; background: #fff; border-radius: 6px;\n  font: inherit; font-size: 13px; color: #555; cursor: pointer;\n}\n.hm-repick[hidden] { display: none; }\n.hm-diag {\n  position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 2147483647;\n  background: #1f2430; color: #e6e6e6; padding: 14px 16px; border-radius: 10px;\n  font: 12px/1.6 ui-monospace, SFMono-Regular, Menlo, monospace;\n  white-space: pre-wrap; word-break: break-all; max-height: 70vh; overflow-y: auto;\n  box-shadow: 0 6px 24px rgba(0,0,0,.35);\n}\n.hm-diag-close {\n  display: block; margin-top: 12px; padding: 7px 14px; border: 0; border-radius: 6px;\n  background: #3b5bdb; color: #fff; font: inherit; cursor: pointer;\n}\n.hm-candinfo {\n  margin: 14px 16px 0; font: 11px/1.5 ui-monospace, Menlo, monospace;\n  color: #999; word-break: break-all;\n}\n.hm-pickrow { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 16px 0; }\n.hm-pickrow button {\n  padding: 7px 12px; border: 1px solid #d5d5d5; background: #fff;\n  border-radius: 6px; font: inherit; font-size: 13px; color: #555; cursor: pointer;\n}\n.hm-pickrow .hm-keep { border-color: #b9c4ea; color: #3b5bdb; font-weight: 600; }\n.hm-repick[hidden], .hm-keep[hidden] { display: none; }\n.hm-memo {\n  margin: 8px 16px 0; font-size: 11px; color: #999;\n  display: flex; gap: 8px; align-items: center; flex-wrap: wrap; word-break: break-all;\n}\n.hm-forget {\n  padding: 3px 8px; border: 1px solid #ddd; background: #fff;\n  border-radius: 5px; font: inherit; font-size: 11px; color: #888; cursor: pointer;\n}\n";
+window.__HM_CSS=".hm-root { all: initial; }\n.hm-fab {\n  position: fixed; right: 16px; bottom: 16px; z-index: 2147483646;\n  padding: 12px 18px; border: 0; border-radius: 999px;\n  background: #3b5bdb; color: #fff; font: 600 15px/1 -apple-system, system-ui, sans-serif;\n  box-shadow: 0 4px 14px rgba(0,0,0,.25); cursor: pointer;\n}\n.hm-sheet {\n  /* \ubcf8\ubb38 \uae00\uc790 \ud06c\uae30. \ud654\uba74 \ud3ed\uc5d0 \ub530\ub77c \ucee4\uc9c0\ub418 \ub108\ubb34 \ucee4\uc9c0\uc9c0 \uc54a\uac8c \ubb36\ub294\ub2e4. */\n  --hm-fs: clamp(16px, 4.3vw, 20px);\n  position: fixed; inset: 0; z-index: 2147483647; display: flex; flex-direction: column;\n  background: #fff; font: 15px/1.5 -apple-system, system-ui, sans-serif; color: #1a1a1a;\n}\n.hm-sheet[hidden] { display: none; }\n.hm-head {\n  display: flex; align-items: center; gap: 10px;\n  padding: 14px 16px; border-bottom: 1px solid #e5e5e5; background: #fafafa;\n}\n.hm-head strong { flex: 1; font-size: 16px; }\n.hm-head button {\n  border: 1px solid #d5d5d5; background: #fff; border-radius: 6px;\n  padding: 6px 10px; font: inherit; font-size: 14px; cursor: pointer;\n}\n.hm-body { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 8px 0; }\n.hm-item { padding: 14px 16px; border-bottom: 1px solid #eee; cursor: pointer; }\n.hm-item:active { background: #f2f4ff; }\n.hm-pinned { background: #f7f9ff; }\n.hm-item-title { font-weight: 600; margin-bottom: 4px; word-break: break-all;\n  font-size: calc(var(--hm-fs) * 0.92); }\n.hm-meta { font-size: 13px; color: #777; }\n.hm-detail-title { margin: 16px 16px 6px; word-break: break-all;\n  font-size: calc(var(--hm-fs) * 1.15); line-height: 1.4; }\n.hm-body > .hm-meta { margin: 0 16px; }\n.hm-open {\n  display: inline-block; margin: 16px; padding: 10px 16px;\n  background: #3b5bdb; color: #fff; border-radius: 8px; text-decoration: none; font-weight: 600;\n}\n.hm-content {\n  padding: 0 16px; margin-top: 14px; word-break: break-word;\n  font-size: var(--hm-fs); line-height: 1.75;\n}\n/* \uc6d0\ubb38\uc5d0 \ubc15\ud78c \uc791\uc740 \uae00\uc528\u00b7\uae00\uaf34\uc744 \ubb34\ub825\ud654\ud55c\ub2e4.\n   \uad6c\ud615 \ud398\uc774\uc9c0\ub294 <font size=\"2\">\ub098 \uc778\ub77c\uc778 font-size\ub85c \ud06c\uae30\ub97c \uace0\uc815\ud574 \ub454\ub2e4.\n   b\u00b7strong\uc740 \uad75\uae30\ub97c \uc0b4\ub824\uc57c \ud574\uc11c \uac74\ub4dc\ub9ac\uc9c0 \uc54a\ub294\ub2e4. */\n.hm-content font,\n.hm-content span,\n.hm-content p,\n.hm-content div,\n.hm-content td,\n.hm-content th,\n.hm-content li {\n  font-size: inherit !important;\n  line-height: inherit !important;\n  font-family: inherit !important;\n}\n.hm-content img { max-width: 100%; height: auto; }\n.hm-content table { width: 100% !important; display: block; overflow-x: auto; }\n.hm-loading, .hm-error { color: #888; font-size: 14px; }\n.hm-error { color: #b23; }\n.hm-repick {\n  display: block; margin: 12px 16px 0; padding: 7px 12px;\n  border: 1px solid #d5d5d5; background: #fff; border-radius: 6px;\n  font: inherit; font-size: 13px; color: #555; cursor: pointer;\n}\n.hm-repick[hidden] { display: none; }\n.hm-diag {\n  position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 2147483647;\n  background: #1f2430; color: #e6e6e6; padding: 14px 16px; border-radius: 10px;\n  font: 12px/1.6 ui-monospace, SFMono-Regular, Menlo, monospace;\n  white-space: pre-wrap; word-break: break-all; max-height: 70vh; overflow-y: auto;\n  box-shadow: 0 6px 24px rgba(0,0,0,.35);\n}\n.hm-diag-close {\n  display: block; margin-top: 12px; padding: 7px 14px; border: 0; border-radius: 6px;\n  background: #3b5bdb; color: #fff; font: inherit; cursor: pointer;\n}\n.hm-candinfo {\n  margin: 14px 16px 0; font: 11px/1.5 ui-monospace, Menlo, monospace;\n  color: #999; word-break: break-all;\n}\n.hm-pickrow { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 16px 0; }\n.hm-pickrow button {\n  padding: 7px 12px; border: 1px solid #d5d5d5; background: #fff;\n  border-radius: 6px; font: inherit; font-size: 13px; color: #555; cursor: pointer;\n}\n.hm-pickrow .hm-keep { border-color: #b9c4ea; color: #3b5bdb; font-weight: 600; }\n.hm-repick[hidden], .hm-keep[hidden] { display: none; }\n.hm-memo {\n  margin: 8px 16px 0; font-size: 11px; color: #999;\n  display: flex; gap: 8px; align-items: center; flex-wrap: wrap; word-break: break-all;\n}\n.hm-forget {\n  padding: 3px 8px; border: 1px solid #ddd; background: #fff;\n  border-radius: 5px; font: inherit; font-size: 11px; color: #888; cursor: pointer;\n}\n\n/* \uae00\uc790 \ud06c\uae30 \uc870\uc808 */\n.hm-fs { display: flex; gap: 6px; align-items: center; margin-left: auto; }\n.hm-fs button {\n  width: 34px; height: 32px; padding: 0; border: 1px solid #d5d5d5; background: #fff;\n  border-radius: 7px; font: inherit; font-size: 15px; color: #444; cursor: pointer;\n}\n.hm-fs button:active { background: #eee; }\n";
 /* 히즈넷 공지 목록을 읽어 모바일용 화면으로 다시 그린다.
  *
  * 히즈넷은 <frameset> 구조라 실제 내용이 안쪽 프레임에 있다.
@@ -263,6 +263,26 @@ window.__HM_CSS=".hm-root { all: initial; }\n.hm-fab {\n  position: fixed; right
       return "";
     }
   };
+  // 글자 크기는 배율로 기억한다. 화면 폭에 따른 기본값(clamp)은 그대로 두고 곱한다.
+  const FS_KEY = "hm:fontscale";
+  const FS_MIN = 0.85;
+  const FS_MAX = 1.8;
+  const readScale = () => {
+    try {
+      const v = parseFloat(localStorage.getItem(FS_KEY));
+      return v >= FS_MIN && v <= FS_MAX ? v : 1;
+    } catch (_) {
+      return 1;
+    }
+  };
+  const writeScale = (v) => {
+    try {
+      localStorage.setItem(FS_KEY, String(v));
+    } catch (_) {
+      /* 저장 못 해도 이번 화면에는 적용된다 */
+    }
+  };
+
   const forget = () => {
     try {
       localStorage.removeItem(MEMO_KEY);
@@ -337,6 +357,10 @@ window.__HM_CSS=".hm-root { all: initial; }\n.hm-fab {\n  position: fixed; right
         <header class="hm-head">
           <button class="hm-back" type="button" hidden>← 뒤로</button>
           <strong class="hm-title">HISNet 공지사항</strong>
+          <span class="hm-fs">
+            <button class="hm-fs-down" type="button" aria-label="글자 작게">가−</button>
+            <button class="hm-fs-up" type="button" aria-label="글자 크게">가+</button>
+          </span>
           <button class="hm-close" type="button" aria-label="닫기">✕</button>
         </header>
         <div class="hm-body"></div>
@@ -462,6 +486,24 @@ window.__HM_CSS=".hm-root { all: initial; }\n.hm-fab {\n  position: fixed; right
       }
     };
 
+    let scale = readScale();
+    const applyScale = () => {
+      // clamp()로 정한 기본값에 배율을 곱한다
+      sheet.style.setProperty(
+        "--hm-fs",
+        `clamp(${(16 * scale).toFixed(1)}px, ${(4.3 * scale).toFixed(2)}vw, ${(20 * scale).toFixed(1)}px)`
+      );
+    };
+    applyScale();
+
+    const bump = (d) => {
+      scale = Math.min(FS_MAX, Math.max(FS_MIN, Math.round((scale + d) * 100) / 100));
+      applyScale();
+      writeScale(scale);
+    };
+    root.querySelector(".hm-fs-up").addEventListener("click", () => bump(0.12));
+    root.querySelector(".hm-fs-down").addEventListener("click", () => bump(-0.12));
+
     root.querySelector(".hm-fab").addEventListener("click", () => {
       sheet.hidden = false;
       renderList();
@@ -501,8 +543,15 @@ window.__HM_CSS=".hm-root { all: initial; }\n.hm-fab {\n  position: fixed; right
     for (const doc of sameOriginDocs(root)) {
       // frameset 문서도 document.body가 <frameset>을 돌려주므로 태그를 확인한다
       if (!doc.body || doc.body.tagName !== "BODY") continue;
-      // 확장은 프레임마다 실행되므로, 이미 붙은 문서는 건너뛴다
-      if (doc.documentElement.dataset.hmActive) continue;
+      // 이미 붙어 있으면 성공으로 본다.
+      // content.js가 스스로 start()를 부르고 북마클릿 래퍼가 한 번 더 부르는데,
+      // 여기서 false를 돌려주면 성공한 실행에도 진단 패널이 떴다.
+      // 겸사겸사 닫아둔 목록을 다시 열어준다(북마크를 다시 누른 경우).
+      if (doc.documentElement.dataset.hmActive) {
+        const open = doc.querySelector(".hm-sheet");
+        if (open) open.hidden = false;
+        return true;
+      }
       const notices = scrape(doc);
       if (notices.length) {
         doc.documentElement.dataset.hmActive = "1";

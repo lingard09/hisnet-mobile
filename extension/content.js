@@ -262,6 +262,26 @@
       return "";
     }
   };
+  // 글자 크기는 배율로 기억한다. 화면 폭에 따른 기본값(clamp)은 그대로 두고 곱한다.
+  const FS_KEY = "hm:fontscale";
+  const FS_MIN = 0.85;
+  const FS_MAX = 1.8;
+  const readScale = () => {
+    try {
+      const v = parseFloat(localStorage.getItem(FS_KEY));
+      return v >= FS_MIN && v <= FS_MAX ? v : 1;
+    } catch (_) {
+      return 1;
+    }
+  };
+  const writeScale = (v) => {
+    try {
+      localStorage.setItem(FS_KEY, String(v));
+    } catch (_) {
+      /* 저장 못 해도 이번 화면에는 적용된다 */
+    }
+  };
+
   const forget = () => {
     try {
       localStorage.removeItem(MEMO_KEY);
@@ -336,6 +356,10 @@
         <header class="hm-head">
           <button class="hm-back" type="button" hidden>← 뒤로</button>
           <strong class="hm-title">HISNet 공지사항</strong>
+          <span class="hm-fs">
+            <button class="hm-fs-down" type="button" aria-label="글자 작게">가−</button>
+            <button class="hm-fs-up" type="button" aria-label="글자 크게">가+</button>
+          </span>
           <button class="hm-close" type="button" aria-label="닫기">✕</button>
         </header>
         <div class="hm-body"></div>
@@ -461,6 +485,24 @@
       }
     };
 
+    let scale = readScale();
+    const applyScale = () => {
+      // clamp()로 정한 기본값에 배율을 곱한다
+      sheet.style.setProperty(
+        "--hm-fs",
+        `clamp(${(16 * scale).toFixed(1)}px, ${(4.3 * scale).toFixed(2)}vw, ${(20 * scale).toFixed(1)}px)`
+      );
+    };
+    applyScale();
+
+    const bump = (d) => {
+      scale = Math.min(FS_MAX, Math.max(FS_MIN, Math.round((scale + d) * 100) / 100));
+      applyScale();
+      writeScale(scale);
+    };
+    root.querySelector(".hm-fs-up").addEventListener("click", () => bump(0.12));
+    root.querySelector(".hm-fs-down").addEventListener("click", () => bump(-0.12));
+
     root.querySelector(".hm-fab").addEventListener("click", () => {
       sheet.hidden = false;
       renderList();
@@ -500,8 +542,15 @@
     for (const doc of sameOriginDocs(root)) {
       // frameset 문서도 document.body가 <frameset>을 돌려주므로 태그를 확인한다
       if (!doc.body || doc.body.tagName !== "BODY") continue;
-      // 확장은 프레임마다 실행되므로, 이미 붙은 문서는 건너뛴다
-      if (doc.documentElement.dataset.hmActive) continue;
+      // 이미 붙어 있으면 성공으로 본다.
+      // content.js가 스스로 start()를 부르고 북마클릿 래퍼가 한 번 더 부르는데,
+      // 여기서 false를 돌려주면 성공한 실행에도 진단 패널이 떴다.
+      // 겸사겸사 닫아둔 목록을 다시 열어준다(북마크를 다시 누른 경우).
+      if (doc.documentElement.dataset.hmActive) {
+        const open = doc.querySelector(".hm-sheet");
+        if (open) open.hidden = false;
+        return true;
+      }
       const notices = scrape(doc);
       if (notices.length) {
         doc.documentElement.dataset.hmActive = "1";
