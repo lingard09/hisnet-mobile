@@ -1,9 +1,10 @@
 .hm-root { all: initial; }
 .hm-fab {
-  position: fixed; right: 16px; bottom: 16px; z-index: 2147483646;
-  padding: 12px 18px; border: 0; border-radius: 999px;
-  background: #3b5bdb; color: #fff; font: 600 15px/1 -apple-system, system-ui, sans-serif;
-  box-shadow: 0 4px 14px rgba(0,0,0,.25); cursor: pointer;
+  position: fixed; right: 16px; bottom: 20px; z-index: 2147483646;
+  padding: 0 26px; min-height: 54px; border: 0; border-radius: 999px;
+  background: #3b5bdb; color: #fff; font: 600 18px/1 -apple-system, system-ui, sans-serif;
+  box-shadow: 0 4px 16px rgba(0,0,0,.28); cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 .hm-sheet {
   /* 본문 글자 크기. 화면 폭에 따라 커지되 너무 커지지 않게 묶는다. */
@@ -13,27 +14,33 @@
 }
 .hm-sheet[hidden] { display: none; }
 .hm-head {
-  display: flex; align-items: center; gap: 10px;
-  padding: 14px 16px; border-bottom: 1px solid #e5e5e5; background: #fafafa;
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 12px; border-bottom: 1px solid #e5e5e5; background: #fafafa;
 }
-.hm-head strong { flex: 1; font-size: 16px; }
+.hm-head strong { flex: 1; font-size: calc(var(--hm-fs) * 0.95); }
 .hm-head button {
-  border: 1px solid #d5d5d5; background: #fff; border-radius: 6px;
-  padding: 6px 10px; font: inherit; font-size: 14px; cursor: pointer;
+  border: 1px solid #d5d5d5; background: #fff; border-radius: 9px;
+  padding: 0 14px; min-height: 46px; font: inherit;
+  font-size: calc(var(--hm-fs) * 0.85); cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
+.hm-head button:active { background: #eee; }
 .hm-body { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 8px 0; }
-.hm-item { padding: 14px 16px; border-bottom: 1px solid #eee; cursor: pointer; }
+.hm-item { padding: 18px 16px; border-bottom: 1px solid #eee; cursor: pointer;
+  -webkit-tap-highlight-color: transparent; }
 .hm-item:active { background: #f2f4ff; }
 .hm-pinned { background: #f7f9ff; }
 .hm-item-title { font-weight: 600; margin-bottom: 4px; word-break: break-all;
   font-size: calc(var(--hm-fs) * 0.92); }
-.hm-meta { font-size: 13px; color: #777; }
+.hm-meta { font-size: calc(var(--hm-fs) * 0.78); color: #777; }
 .hm-detail-title { margin: 16px 16px 6px; word-break: break-all;
   font-size: calc(var(--hm-fs) * 1.15); line-height: 1.4; }
 .hm-body > .hm-meta { margin: 0 16px; }
 .hm-open {
-  display: inline-block; margin: 16px; padding: 10px 16px;
-  background: #3b5bdb; color: #fff; border-radius: 8px; text-decoration: none; font-weight: 600;
+  display: inline-block; margin: 16px; padding: 0 20px; min-height: 48px;
+  line-height: 48px; background: #3b5bdb; color: #fff; border-radius: 10px;
+  text-decoration: none; font-weight: 600; font-size: calc(var(--hm-fs) * 0.85);
+  -webkit-tap-highlight-color: transparent;
 }
 .hm-content {
   padding: 0 16px; margin-top: 14px; word-break: break-word;
@@ -42,13 +49,10 @@
 /* 원문에 박힌 작은 글씨·글꼴을 무력화한다.
    구형 페이지는 <font size="2">나 인라인 font-size로 크기를 고정해 둔다.
    b·strong은 굵기를 살려야 해서 건드리지 않는다. */
-.hm-content font,
-.hm-content span,
-.hm-content p,
-.hm-content div,
-.hm-content td,
-.hm-content th,
-.hm-content li {
+/* 태그를 하나씩 열거하면 <table style="font-size:11px"> 같은 것이 빠져나가고,
+   그 안의 셀은 상속으로 다시 작아진다. 후손 전체를 덮는다.
+   굵기(font-weight)는 건드리지 않아 b·strong은 그대로 남는다. */
+.hm-content * {
   font-size: inherit !important;
   line-height: inherit !important;
   font-family: inherit !important;
@@ -75,14 +79,17 @@
   background: #3b5bdb; color: #fff; font: inherit; cursor: pointer;
 }
 .hm-candinfo {
-  margin: 14px 16px 0; font: 11px/1.5 ui-monospace, Menlo, monospace;
+  margin: 14px 16px 0; font-family: ui-monospace, Menlo, monospace;
+  font-size: calc(var(--hm-fs) * 0.68); line-height: 1.5;
   color: #999; word-break: break-all;
 }
 .hm-pickrow { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 16px 0; }
 .hm-pickrow button {
-  padding: 7px 12px; border: 1px solid #d5d5d5; background: #fff;
-  border-radius: 6px; font: inherit; font-size: 13px; color: #555; cursor: pointer;
+  padding: 0 16px; min-height: 46px; border: 1px solid #d5d5d5; background: #fff;
+  border-radius: 9px; font: inherit; font-size: calc(var(--hm-fs) * 0.82);
+  color: #555; cursor: pointer; -webkit-tap-highlight-color: transparent;
 }
+.hm-pickrow button:active { background: #eee; }
 .hm-pickrow .hm-keep { border-color: #b9c4ea; color: #3b5bdb; font-weight: 600; }
 .hm-repick[hidden], .hm-keep[hidden] { display: none; }
 .hm-memo {
@@ -90,14 +97,16 @@
   display: flex; gap: 8px; align-items: center; flex-wrap: wrap; word-break: break-all;
 }
 .hm-forget {
-  padding: 3px 8px; border: 1px solid #ddd; background: #fff;
-  border-radius: 5px; font: inherit; font-size: 11px; color: #888; cursor: pointer;
+  padding: 0 12px; min-height: 38px; border: 1px solid #ddd; background: #fff;
+  border-radius: 8px; font: inherit; font-size: calc(var(--hm-fs) * 0.72);
+  color: #888; cursor: pointer; -webkit-tap-highlight-color: transparent;
 }
 
 /* 글자 크기 조절 */
 .hm-fs { display: flex; gap: 6px; align-items: center; margin-left: auto; }
 .hm-fs button {
-  width: 34px; height: 32px; padding: 0; border: 1px solid #d5d5d5; background: #fff;
-  border-radius: 7px; font: inherit; font-size: 15px; color: #444; cursor: pointer;
+  width: 46px; min-height: 46px; padding: 0; border: 1px solid #d5d5d5; background: #fff;
+  border-radius: 9px; font: inherit; font-size: calc(var(--hm-fs) * 0.85);
+  color: #444; cursor: pointer; -webkit-tap-highlight-color: transparent;
 }
 .hm-fs button:active { background: #eee; }

@@ -332,6 +332,23 @@
 
   // ---- UI -------------------------------------------------------------
 
+  /** 히즈넷에는 viewport 메타가 없다.
+   *  그러면 폰이 980px짜리 화면으로 그린 뒤 통째로 축소해 보여준다.
+   *  우리 오버레이도 같이 축소돼서 버튼이 손톱만해진다.
+   *  최상위 문서에 메타를 넣어 실제 화면 폭으로 그리게 한다. */
+  function ensureViewport(doc) {
+    try {
+      if (!doc || !doc.head) return;
+      if (doc.querySelector('meta[name="viewport"]')) return;
+      const m = doc.createElement("meta");
+      m.name = "viewport";
+      m.content = "width=device-width, initial-scale=1";
+      doc.head.appendChild(m);
+    } catch (_) {
+      /* 못 넣어도 기능은 동작한다 */
+    }
+  }
+
   function build(doc, notices) {
     // 북마클릿으로 실행하면 CSS가 같이 오지 않는다. 오버레이를 그리는 그 문서에
     // 직접 심어야 한다 — 스타일은 프레임 경계를 넘지 못한다.
@@ -347,6 +364,14 @@
     } catch (_) {
       /* 스타일이 없어도 기능은 동작한다 */
     }
+
+    // 프레임 안이라도 화면 축소를 정하는 건 최상위 문서다. 둘 다 챙긴다.
+    try {
+      ensureViewport(window.top.document);
+    } catch (_) {
+      /* 다른 출처면 건드릴 수 없다 */
+    }
+    ensureViewport(doc);
 
     const root = doc.createElement("div");
     root.className = "hm-root";
