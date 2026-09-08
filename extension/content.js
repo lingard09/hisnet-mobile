@@ -513,10 +513,8 @@
     let scale = readScale();
     const applyScale = () => {
       // clamp()로 정한 기본값에 배율을 곱한다
-      sheet.style.setProperty(
-        "--hm-fs",
-        `clamp(${(16 * scale).toFixed(1)}px, ${(4.3 * scale).toFixed(2)}vw, ${(20 * scale).toFixed(1)}px)`
-      );
+      // 본문만 조절한다. 버튼·목록은 --hm-ui 가 따로 정한다.
+      sheet.style.setProperty("--hm-fs", `${(12 * scale).toFixed(1)}px`);
     };
     applyScale();
 

@@ -7,8 +7,11 @@
   -webkit-tap-highlight-color: transparent;
 }
 .hm-sheet {
-  /* 본문 글자 크기. 화면 폭에 따라 커지되 너무 커지지 않게 묶는다. */
-  --hm-fs: clamp(16px, 4.3vw, 20px);
+  /* --hm-fs 는 원문 본문에만 쓴다. 가−/가+ 로 조절되는 값.
+     --hm-ui 는 버튼·목록 같은 껍데기용이라 따로 둔다.
+     하나로 묶으면 본문을 줄일 때 버튼 글씨까지 같이 작아진다. */
+  --hm-fs: 12px;
+  --hm-ui: 15px;
   position: fixed; inset: 0; z-index: 2147483647; display: flex; flex-direction: column;
   background: #fff; font: 15px/1.5 -apple-system, system-ui, sans-serif; color: #1a1a1a;
 }
@@ -17,11 +20,11 @@
   display: flex; align-items: center; gap: 8px;
   padding: 10px 12px; border-bottom: 1px solid #e5e5e5; background: #fafafa;
 }
-.hm-head strong { flex: 1; font-size: calc(var(--hm-fs) * 0.95); }
+.hm-head strong { flex: 1; font-size: calc(var(--hm-ui) * 1.05); }
 .hm-head button {
   border: 1px solid #d5d5d5; background: #fff; border-radius: 9px;
   padding: 0 14px; min-height: 46px; font: inherit;
-  font-size: calc(var(--hm-fs) * 0.85); cursor: pointer;
+  font-size: var(--hm-ui); cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
 .hm-head button:active { background: #eee; }
@@ -31,15 +34,15 @@
 .hm-item:active { background: #f2f4ff; }
 .hm-pinned { background: #f7f9ff; }
 .hm-item-title { font-weight: 600; margin-bottom: 4px; word-break: break-all;
-  font-size: calc(var(--hm-fs) * 0.92); }
-.hm-meta { font-size: calc(var(--hm-fs) * 0.78); color: #777; }
+  font-size: var(--hm-ui); }
+.hm-meta { font-size: calc(var(--hm-ui) * 0.85); color: #777; }
 .hm-detail-title { margin: 16px 16px 6px; word-break: break-all;
-  font-size: calc(var(--hm-fs) * 1.15); line-height: 1.4; }
+  font-size: calc(var(--hm-ui) * 1.2); line-height: 1.4; }
 .hm-body > .hm-meta { margin: 0 16px; }
 .hm-open {
   display: inline-block; margin: 16px; padding: 0 20px; min-height: 48px;
   line-height: 48px; background: #3b5bdb; color: #fff; border-radius: 10px;
-  text-decoration: none; font-weight: 600; font-size: calc(var(--hm-fs) * 0.85);
+  text-decoration: none; font-weight: 600; font-size: var(--hm-ui);
   -webkit-tap-highlight-color: transparent;
 }
 .hm-content {
@@ -80,13 +83,13 @@
 }
 .hm-candinfo {
   margin: 14px 16px 0; font-family: ui-monospace, Menlo, monospace;
-  font-size: calc(var(--hm-fs) * 0.68); line-height: 1.5;
+  font-size: calc(var(--hm-ui) * 0.75); line-height: 1.5;
   color: #999; word-break: break-all;
 }
 .hm-pickrow { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 16px 0; }
 .hm-pickrow button {
   padding: 0 16px; min-height: 46px; border: 1px solid #d5d5d5; background: #fff;
-  border-radius: 9px; font: inherit; font-size: calc(var(--hm-fs) * 0.82);
+  border-radius: 9px; font: inherit; font-size: calc(var(--hm-ui) * 0.93);
   color: #555; cursor: pointer; -webkit-tap-highlight-color: transparent;
 }
 .hm-pickrow button:active { background: #eee; }
@@ -98,7 +101,7 @@
 }
 .hm-forget {
   padding: 0 12px; min-height: 38px; border: 1px solid #ddd; background: #fff;
-  border-radius: 8px; font: inherit; font-size: calc(var(--hm-fs) * 0.72);
+  border-radius: 8px; font: inherit; font-size: calc(var(--hm-ui) * 0.8);
   color: #888; cursor: pointer; -webkit-tap-highlight-color: transparent;
 }
 
@@ -106,7 +109,7 @@
 .hm-fs { display: flex; gap: 6px; align-items: center; margin-left: auto; }
 .hm-fs button {
   width: 46px; min-height: 46px; padding: 0; border: 1px solid #d5d5d5; background: #fff;
-  border-radius: 9px; font: inherit; font-size: calc(var(--hm-fs) * 0.85);
+  border-radius: 9px; font: inherit; font-size: var(--hm-ui);
   color: #444; cursor: pointer; -webkit-tap-highlight-color: transparent;
 }
 .hm-fs button:active { background: #eee; }
